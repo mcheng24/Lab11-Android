@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -63,11 +64,19 @@ public final class MainActivity extends AppCompatActivity {
         try {
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    "",
+                    "https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49",
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(final JSONObject response) {
+                            if (response != null) {
+                                final TextView text = findViewById(R.id.jsonResult);
+                                if (text == null) {
+                                    Log.d(TAG, "text is null.");
+                                } else {
+                                    text.setText(response.toString());
+                                }
+                            }
                             Log.d(TAG, response.toString());
                         }
                     }, new Response.ErrorListener() {
